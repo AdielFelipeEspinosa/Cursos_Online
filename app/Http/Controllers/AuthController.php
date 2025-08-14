@@ -57,6 +57,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/')->with('error', 'Has cerrado sesión correctamente');
+        return redirect('/')->with('success', 'Has cerrado sesión correctamente');
     }
 }

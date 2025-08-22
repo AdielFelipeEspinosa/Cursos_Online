@@ -16,3 +16,9 @@
 - En WorkBrench Model → Model Options → MySQL y cambia la Target MySQL Version a 5.7 o 5.6.
 - composer require --dev kitloong/laravel-migrations-generator
 - php artisan migrate:generate 
+
+# Editar Tabla Users
+- Se debe cambiar:
+- Modelo
+- Controlador
+- Vista

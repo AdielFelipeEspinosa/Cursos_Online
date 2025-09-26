@@ -4,7 +4,7 @@
 
         <!-- Logo -->
         <div class="col-lg-3">
-            <a href="" class="text-decoration-none">
+            <a href="/" class="text-decoration-none">
                 <h1 class="m-0">Educa<span class="text-primary">Net</span></h1>
             </a>
         </div>

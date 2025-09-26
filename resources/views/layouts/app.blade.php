@@ -38,8 +38,6 @@
         
     {{-- Footer --}}
     @include('layouts.footer')
-
-    {{-- JS Global --}}
-    <script src="{{ asset('js/app.js') }}"></script>
+    
 </body>
 </html>

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('role')->default('student');
+            $table->string('url_imagen')->nullable();
+            $table->timestamps();
+
         });
 
         Schema::create('sessions', function (Blueprint $table) {

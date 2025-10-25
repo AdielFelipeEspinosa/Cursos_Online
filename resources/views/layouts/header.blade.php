@@ -43,12 +43,9 @@
                         @endif
 
                         @if(Auth::check() && Auth::user()->role === 'instructor')
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Soy Instructor</a>
-                                <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="blog.html" class="dropdown-item">Gestionar Cursos</a>
-                                </div>
-                            </div>
+
+                            <a href="/instructor/dashboard" class="nav-item nav-link text-nowrap">Dashcoard</a>
+
                         @endif
                     </div>
                     <!-- Fin Menú de navegación -->

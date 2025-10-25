@@ -22,3 +22,4 @@
 - Modelo
 - Controlador
 - Vista
+- php artisan migrate:fresh --seed

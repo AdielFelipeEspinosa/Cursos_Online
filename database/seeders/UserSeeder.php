@@ -17,9 +17,9 @@ class UserSeeder extends Seeder
             // Administradores
             [
                 'name' => 'Admin Principal',
-                'email' => 'admin@cursosplatform.com',
-                'password' => Hash::make('password123'),
-                'role' => 'admin',
+                'email' => 'a@gmail.com',
+                'password' => Hash::make('123'),
+                'role' => 'instructor',
                 'url_imagen' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
                 'created_at' => now(),
                 'updated_at' => now(),

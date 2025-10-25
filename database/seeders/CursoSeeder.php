@@ -61,7 +61,7 @@ class CursoSeeder extends Seeder
                 'descripcion' => 'Domina las herramientas esenciales de Photoshop para edición de imágenes y diseño gráfico profesional.',
                 'instructor_id' => 4, // Ana López
                 'categoria_id' => 2,
-                'url_imagen' => 'https://images.unsplash.com/photo-1626785774625-0b1c2c4eab67?w=800&h=400&fit=crop',
+                'url_imagen' => 'https://photutorial.com/wp-content/uploads/2025/03/adobe-photoshop-logo.png',
                 'esta_publicado' => true,
                 'created_at' => now()->subDays(15),
                 'updated_at' => now()->subDays(15),
@@ -83,7 +83,7 @@ class CursoSeeder extends Seeder
                 'descripcion' => 'Aprende a usar Instagram para hacer crecer tu negocio con estrategias de contenido, historias y publicidad.',
                 'instructor_id' => 5, // Pedro Martínez
                 'categoria_id' => 3,
-                'url_imagen' => 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=400&fit=crop',
+                'url_imagen' => 'https://media.wired.com/photos/689659396377ab42bc00add9/3:2/w_2560%2Cc_limit/gear_insta_GettyImages-2203349892.jpg',
                 'esta_publicado' => true,
                 'created_at' => now()->subDays(10),
                 'updated_at' => now()->subDays(10),

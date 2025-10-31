@@ -44,7 +44,7 @@
 
                         @if(Auth::check() && Auth::user()->role === 'instructor')
 
-                            <a href="/instructor/dashboard" class="nav-item nav-link text-nowrap">Dashcoard</a>
+                            <a href="/instructor/dashboard" class="nav-item nav-link text-nowrap">Dashboard</a>
 
                         @endif
                     </div>

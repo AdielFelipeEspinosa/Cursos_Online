@@ -59,7 +59,7 @@ class CursoController extends Controller
     public function show(Curso $curso)
     {
         // Verificar que el curso pertenece al instructor
-        if ($curso->instructor_id !== Auth::id()) {
+        if ((int)$curso->instructor_id !== (int)Auth::id()) {
             return redirect()->route('cursos.index')
                 ->with('error', 'No tienes permiso para ver este curso');
         }
@@ -75,9 +75,9 @@ class CursoController extends Controller
     public function edit(Curso $curso)
     {
         // Verificar que el curso pertenece al instructor
-        if ($curso->instructor_id !== Auth::id()) {
+        if ((int)$curso->instructor_id !== (int)Auth::id()) {
             return redirect()->route('cursos.index')
-                ->with('error', 'No tienes permiso para editar este curso');
+                ->with('error', '   ');
         }
 
         $categorias = Categoria::all();
@@ -91,7 +91,7 @@ class CursoController extends Controller
     public function update(Request $request, Curso $curso)
     {
         // Verificar que el curso pertenece al instructor
-        if ($curso->instructor_id !== Auth::id()) {
+        if ((int)$curso->instructor_id !== (int)Auth::id()) {
             return redirect()->route('cursos.index')
                 ->with('error', 'No tienes permiso para actualizar este curso');
         }
@@ -115,7 +115,7 @@ class CursoController extends Controller
     public function destroy(Curso $curso)
     {
         // Verificar que el curso pertenece al instructor
-        if ($curso->instructor_id !== Auth::id()) {
+        if ((int)$curso->instructor_id !== (int)Auth::id()) {
             return redirect()->route('cursos.index')
                 ->with('error', 'No tienes permiso para eliminar este curso');
         }

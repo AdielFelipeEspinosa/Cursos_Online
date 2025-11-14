@@ -46,7 +46,12 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return redirect('/')->with('success', 'Has iniciado sesión correctamente');;
+            if (Auth::user()->role === 'student'){
+                return redirect('/')->with('success', 'Has iniciado sesión correctamente');
+            }
+            elseif (Auth::user()->role === 'instructor'){
+                return redirect('/instructor/dashboard')->with('success', 'Has iniciado sesión correctamente');
+            }   
         }
 
         return back()->withErrors([

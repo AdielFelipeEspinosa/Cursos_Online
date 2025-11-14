@@ -257,6 +257,10 @@ select {
   height: auto ! important;
 }
 
+#archivo {
+  height: auto ! important;
+}
+
 button,
 [type="button"],
 [type="reset"],

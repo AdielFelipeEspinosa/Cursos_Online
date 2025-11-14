@@ -117,10 +117,32 @@ class Leccion extends Model
     {
         $horas = intval($this->duracion_minutos / 60);
         $minutos = $this->duracion_minutos % 60;
-        
+
         if ($horas > 0) {
             return $horas . 'h ' . $minutos . 'min';
         }
         return $minutos . ' min';
+    }
+    
+    public function getVideoEmbedUrlAttribute()
+    {
+        $url = $this->url_video;
+
+        // watch?v=XXXXX
+        if (strpos($url, 'watch?v=') !== false) {
+            $id = explode('watch?v=', $url)[1];
+            $id = explode('&', $id)[0];
+            return "https://www.youtube.com/embed/" . $id;
+        }
+
+        // youtu.be/XXXXX
+        if (strpos($url, 'youtu.be/') !== false) {
+            $id = explode('youtu.be/', $url)[1];
+            $id = explode('?', $id)[0];
+            return "https://www.youtube.com/embed/" . $id;
+        }
+
+        // Si ya es embed o algo no reconocido, devolver tal cual
+        return $url;
     }
 }

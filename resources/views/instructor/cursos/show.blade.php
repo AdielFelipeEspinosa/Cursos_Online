@@ -20,29 +20,31 @@
 <div class="row">
     <div class="col-lg-8">
         <div class="contact-form bg-secondary rounded p-4 mb-4">
-            <h4 class=" mb-3">Descripción</h4>
-            <p class="">{{ $curso->descripcion }}</p>
+            <h4 class="text-bg mb-3">Descripción</h4>
+            <p class="text-bg">{{ $curso->descripcion }}</p>
         </div>
 
         <!-- Lista de lecciones -->
         <div class="contact-form bg-secondary rounded p-4 mb-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class=" mb-0">Lecciones ({{ $curso->lecciones->count() }})</h4>
-                <a href="#" class="btn btn-primary btn-sm">Añadir Lección</a>
+                <h4 class="text-bg mb-0">Lecciones ({{ $curso->lecciones->count() }})</h4>
+                <a href="{{ route('lecciones.index', $curso) }}" class="btn btn-primary btn-sm">Administrar Lecciones</a>
+                <a href="{{ route('lecciones.create', $curso) }}" class="btn btn-primary btn-sm">Crear Lecciones</a>
             </div>
 
             @if($curso->lecciones->count() > 0)
             <div class="list-group">
                 @foreach($curso->lecciones as $leccion)
-                <div class="list-group-item bg-dark  mb-2 rounded">
+                <div class="list-group-item bg-dark text-white mb-2 rounded">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="mb-1">{{ $leccion->orden }}. {{ $leccion->titulo }}</h6>
-                            <small>{{ $leccion->duracion_minutos }} minutos</small>
+                            <h6 class="mb-1 text-white">{{ $leccion->orden }}. {{ $leccion->titulo }}</h6>
+                            <small >{{ $leccion->duracion_minutos }} minutos</small>
                         </div>
                         <div>
-                            <a href="#" class="btn btn-sm btn-warning mr-1">Editar</a>
-                            <form action="#" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar esta lección?')">
+                            <a href="{{ route('lecciones.show', [$curso, $leccion]) }}" class="btn btn-sm btn-info mr-1">Ver</a>
+                            <a href="{{ route('lecciones.edit', [$curso, $leccion]) }}" class="btn btn-sm btn-warning mr-1">Editar</a>
+                            <form action="{{ route('lecciones.destroy', [$curso, $leccion]) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar esta lección?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
@@ -53,7 +55,7 @@
                 @endforeach
             </div>
             @else
-            <p class=" text-center mb-0">No hay lecciones en este curso</p>
+            <p class="text-bg text-center mb-0">No hay lecciones en este curso</p>
             @endif
         </div>
     </div>
@@ -70,47 +72,47 @@
 
         <!-- Estadísticas -->
         <div class="contact-form bg-secondary rounded p-4 mb-4">
-            <h5 class=" mb-3">Estadísticas</h5>
+            <h5 class="text-bg mb-3">Estadísticas</h5>
             
             <div class="mb-3">
-                <p class=" mb-1"><strong>Estado:</strong></p>
+                <p class="text-bg mb-1"><strong>Estado:</strong></p>
                 <span class="badge badge-{{ $curso->esta_publicado ? 'success' : 'danger' }}">
                     {{ $curso->esta_publicado ? 'Publicado' : 'No Publicado' }}
                 </span>
             </div>
 
             <div class="mb-3">
-                <p class=" mb-1"><strong>Lecciones:</strong></p>
-                <p class=" mb-0">{{ $curso->lecciones->count() }} lecciones</p>
+                <p class="text-bg mb-1"><strong>Lecciones:</strong></p>
+                <p class="text-bg mb-0">{{ $curso->lecciones->count() }} lecciones</p>
             </div>
 
             <div class="mb-3">
-                <p class=" mb-1"><strong>Duración Total:</strong></p>
-                <p class=" mb-0">{{ $curso->duracionTotal() }} minutos</p>
+                <p class="text-bg mb-1"><strong>Duración Total:</strong></p>
+                <p class="text-bg mb-0">{{ $curso->duracionTotal() }} minutos</p>
             </div>
 
             <div class="mb-3">
-                <p class=" mb-1"><strong>Estudiantes Inscritos:</strong></p>
-                <p class=" mb-0">{{ $curso->inscripciones->count() }}</p>
+                <p class="text-bg mb-1"><strong>Estudiantes Inscritos:</strong></p>
+                <p class="text-bg mb-0">{{ $curso->inscripciones->count() }}</p>
             </div>
 
             <div class="mb-3">
-                <p class=" mb-1"><strong>Calificación:</strong></p>
-                <p class=" mb-0">
+                <p class="text-bg mb-1"><strong>Calificación:</strong></p>
+                <p class="text-bg mb-0">
                     {{ number_format($curso->promedioCalificaciones(), 1) }} ⭐ 
                     ({{ $curso->reseñas->count() }} reseñas)
                 </p>
             </div>
 
             <div>
-                <p class=" mb-1"><strong>Creado:</strong></p>
-                <p class=" mb-0">{{ $curso->created_at->format('d/m/Y') }}</p>
+                <p class="text-bg mb-1"><strong>Creado:</strong></p>
+                <p class="text-bg mb-0">{{ $curso->created_at->format('d/m/Y') }}</p>
             </div>
         </div>
 
         <!-- Acciones -->
         <div class="contact-form bg-secondary rounded p-4">
-            <h5 class=" mb-3">Acciones</h5>
+            <h5 class="text-bg mb-3">Acciones</h5>
             <a href="{{ route('cursos.edit', $curso) }}" class="btn btn-warning btn-block mb-2">Editar Curso</a>
             <form action="{{ route('cursos.destroy', $curso) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este curso?')">
                 @csrf

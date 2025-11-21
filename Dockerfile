@@ -1,27 +1,28 @@
-FROM php:8.2-cli
+FROM php:8.2-fpm
 
 RUN apt-get update && apt-get install -y \
     zip unzip curl libzip-dev libpng-dev libonig-dev libpq-dev \
     && docker-php-ext-install pdo pdo_pgsql pgsql zip
 
+# Instalar Caddy
+RUN apt-get update && apt-get install -y debian-keyring debian-archive-keyring \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | apt-key add - \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' \
+    | tee /etc/apt/sources.list.d/caddy-stable.list \
+    && apt-get update \
+    && apt-get install -y caddy
+
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copiar composer files
-COPY composer.json composer.lock ./
-
-# Instalar dependencias sin scripts
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
-
-# Copiar el resto del proyecto
 COPY . .
 
-# Ejecutar scripts manualmente ahora que artisan existe
-RUN php artisan config:clear || true
+RUN composer install --no-dev --optimize-autoloader
+
+COPY Caddyfile /etc/caddy/Caddyfile
 
 ENV PORT=10000
 
-RUN php artisan storage:link || true
-
-CMD php artisan migrate --force && php -S 0.0.0.0:$PORT -t public
+CMD php artisan migrate --force && caddy run --config /etc/caddy/Caddyfile

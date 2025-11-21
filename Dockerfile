@@ -1,6 +1,7 @@
-FROM php:8.2-fpm
+# Imagen base PHP 8.2 con FPM
+FROM php:8.2-cli
 
-# Dependencias necesarias para Laravel + PostgreSQL
+# Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
     zip unzip curl libzip-dev libpng-dev libonig-dev libpq-dev \
     && docker-php-ext-install pdo pdo_pgsql pgsql zip
@@ -8,19 +9,25 @@ RUN apt-get update && apt-get install -y \
 # Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Establecer directorio del proyecto
 WORKDIR /var/www/html
 
-# Copiar código del proyecto
-COPY . .
+# Copiar solo composer.json y composer.lock para cacheo
+COPY composer.json composer.lock ./
 
-# Instalar dependencias de Laravel
+# Instalar dependencias (cache)
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Puerto que Render expone
+# Copiar el resto del proyecto
+COPY . .
+
+# Exponer puerto que Render asigna dinámicamente
 ENV PORT=10000
 
-# Comando para iniciar Laravel
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT
+# Generar storage link (por si usas imágenes)
+RUN php artisan storage:link || true
 
-
-
+# Comando final:
+# 1. Ejecuta migraciones
+# 2. Inicia el servidor PHP apuntando a /public
+CMD php artisan migrate --force && php -S 0.0.0.0:$PORT -t public

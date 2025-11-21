@@ -14,25 +14,36 @@
     @foreach($cursos as $curso)
     <div class="col-lg-4 col-md-6 mb-4">
         <div class="contact-form bg-dark rounded p-4">
-            <img src="{{ $curso->url_imagen }}" alt="{{ $curso->titulo }}" class="img-fluid rounded mb-3" style="width: 100%; height: 200px; object-fit: cover;">
-            
+            <div class="lazy-image-wrapper skeleton-loader" data-loaded="false" style="height: 200px;">
+                <img
+                    class="img-fluid rounded mb-3 lazy-image"
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                    data-src="{{ $curso->url_imagen }}"
+                    alt="{{ $curso->titulo }}"
+                    loading="lazy"
+                    style="width: 100%; height: 200px; object-fit: cover;">
+            </div>
+
+            {{-- Agregar al final de la vista --}}
+            {!! App\Helpers\LazyLoadHelper::renderAssets() !!}
+
             <h4 class="text-white mb-3">{{ $curso->titulo }}</h4>
-            
+
             <p class="text-white mb-2">
                 <strong>Categoría:</strong> {{ $curso->categoria->nombre }}
             </p>
-            
+
             <p class="text-white mb-2">
-                <strong>Estado:</strong> 
+                <strong>Estado:</strong>
                 <span class="badge badge-{{ $curso->estado === 'publicado' ? 'success' : 'danger' }}">
                     {{ ucfirst($curso->estado) }}
                 </span>
             </p>
-            
+
             <p class="text-white mb-3">
                 {{ Str::limit($curso->descripcion, 100) }}
             </p>
-            
+
             <div class="d-flex justify-content-between">
                 <a href="{{ route('cursos.show', $curso) }}" class="btn btn-primary btn-sm">Ver</a>
                 <a href="{{ route('cursos.edit', $curso) }}" class="btn btn-warning btn-sm">Editar</a>

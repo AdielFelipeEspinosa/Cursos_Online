@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\XssHelper;
 
 class CursoController extends Controller
 {
@@ -43,6 +44,13 @@ class CursoController extends Controller
             'categoria_id' => 'required|exists:categorias,id',
             'url_imagen' => 'required|url',
         ]);
+
+        
+
+        // Sanitizar inputs manualmente (además del middleware)
+        $validated['titulo'] = XssHelper::clean($validated['titulo']);
+        $validated['descripcion'] = XssHelper::clean($validated['descripcion']);
+        $validated['url_imagen'] = XssHelper::cleanUrl($validated['url_imagen']);
 
         $validated['instructor_id'] = Auth::id();
         $validated['esta_publicado'] = true; // Se publica automáticamente

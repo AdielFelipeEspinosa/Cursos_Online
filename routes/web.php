@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CookiePreferenceController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\LeccionController;
 use App\Http\Controllers\MaterialLeccionController;
 use App\Http\Controllers\PublicoController;
+use App\Http\Controllers\SecurityDemoController;
 
 Route::get('/', [PublicoController::class, 'index'])->name('index');
 
@@ -51,6 +53,29 @@ Route::middleware(['auth', 'role:instructor'])->group(function () {
         Route::get('/materiales/{material}/download', [MaterialLeccionController::class, 'download'])->name('download');
         Route::delete('/materiales/{material}', [MaterialLeccionController::class, 'destroy'])->name('destroy');
     });
+});
+
+// Rutas públicas para gestión de cookies (accesibles sin autenticación)
+Route::prefix('preferences')->group(function () {
+    // Vista del panel de preferencias
+    Route::get('/', [CookiePreferenceController::class, 'showPreferences'])->name('preferences.index');
+
+    // API para gestionar cookies
+    Route::post('/theme', [CookiePreferenceController::class, 'setTheme'])->name('preferences.theme');
+    Route::get('/theme', [CookiePreferenceController::class, 'getTheme']);
+    Route::post('/visit', [CookiePreferenceController::class, 'registerVisit'])->name('preferences.visit');
+    Route::post('/clear', [CookiePreferenceController::class, 'clearPreferences'])->name('preferences.clear');
+
+    // Demostración educativa
+    Route::get('/demo', [CookiePreferenceController::class, 'cookieDemo'])->name('preferences.demo');
+
+
+});
+
+// Rutas de seguridad (demo educativa)
+Route::prefix('security')->group(function () {
+    Route::get('/xss-demo', [SecurityDemoController::class, 'xssDemo'])->name('security.xss-demo');
+    Route::post('/xss-test', [SecurityDemoController::class, 'testXss'])->name('security.xss-test');
 });
 
 Route::get('/student', function () {

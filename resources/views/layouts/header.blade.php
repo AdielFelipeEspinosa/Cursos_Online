@@ -31,6 +31,7 @@
                         <a href="" class="nav-item nav-link active">Inicio</a>
                         <a href="" class="nav-item nav-link">Cursos</a>
                         <a href="" class="nav-item nav-link text-nowrap">Últimos Cursos</a>
+                        <a href="{{ route('security.xss-demo') }}" class="nav-item nav-link">Demo Seguridad</a>
 
                         @if(Auth::check() && Auth::user()->role === 'student')
                             <div class="nav-item dropdown">
@@ -38,6 +39,7 @@
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a href="blog.html" class="dropdown-item">Mis Cursos</a>
                                     <a href="single.html" class="dropdown-item">Mis Reseñas</a>
+                                    <a href="{{ route('preferences.index') }}" class="nav-item nav-link">Preferencias</a>
                                 </div>
                             </div>
                         @endif
@@ -45,6 +47,7 @@
                         @if(Auth::check() && Auth::user()->role === 'instructor')
 
                             <a href="/instructor/dashboard" class="nav-item nav-link text-nowrap">Dashboard</a>
+                            <a href="{{ route('preferences.index') }}" class="nav-item nav-link">Preferencias</a>
 
                         @endif
                     </div>
@@ -87,6 +90,7 @@
             </nav>
         </div>
         <!-- Fin Navbar -->
+         
 
     </div>
 </div>

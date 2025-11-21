@@ -10,11 +10,22 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copia todos los archivos de Laravel
+# Copiar proyecto
 COPY . .
 
-# Instala dependencias de Laravel
+# Instalar dependencias sin oci8
 RUN composer install --ignore-platform-req=ext-oci8
 
+# Instalar Caddy (servidor web)
+RUN apt-get update && apt-get install -y debian-keyring debian-archive-keyring \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | apt-key add - \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | \
+        tee /etc/apt/sources.list.d/caddy-stable.list \
+    && apt-get update && apt-get install -y caddy
 
-CMD ["php-fpm"]
+# Copiar configuración de Caddy
+COPY Caddyfile /etc/caddy/Caddyfile
+
+EXPOSE 80
+
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile"]

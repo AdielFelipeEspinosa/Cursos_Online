@@ -7,7 +7,7 @@
 <div class="container-fluid py-5">
     <div class="container py-5">
         <div class="text-center mb-5">
-            <h1>Rgistrar Nuevo Usuario</h1>
+            <h1>Registrar Nuevo Usuario</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-8">

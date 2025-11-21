@@ -23,3 +23,13 @@
 - Controlador
 - Vista
 - php artisan migrate:fresh --seed
+
+# Docker
+- RUN composer install --ignore-platform-req=ext-oci8 (Proyecto Simple)
+
+- docker compose build --no-cache
+- docker compose up -d
+
+- docker exec -it laravel_app php artisan migrate
+- docker exec -it app php artisan migrate:fresh --seed
+

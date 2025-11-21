@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: laravel-app
     env: docker
     plan: free
-    region: oregon
+    name: cursos-online
+    repo: https://github.com/AdielFelipeEspinosa/Cursos_Online
     dockerfilePath: ./Dockerfile
     envVars:
       - key: APP_ENV

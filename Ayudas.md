@@ -31,5 +31,7 @@
 - docker compose up -d
 
 - docker exec -it laravel_app php artisan migrate
-- docker exec -it app php artisan migrate:fresh --seed
+- docker exec -it laravel_app php artisan migrate:fresh --seed
+
+- http://localhost:8080/
 

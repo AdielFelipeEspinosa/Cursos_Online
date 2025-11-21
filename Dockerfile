@@ -10,9 +10,8 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --ignore-platform-req=ext-oci8
+RUN composer install --no-dev --optimize-autoloader
 
-# Laravel debe escuchar en el puerto que Render asigna
 ENV PORT=10000
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
+CMD php artisan serve --host=0.0.0.0 --port=$PORT

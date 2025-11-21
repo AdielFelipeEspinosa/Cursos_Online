@@ -102,5 +102,4 @@
         📊 Ver métricas
     </button>
 </div>
-{!! App\Helpers\LazyLoadHelper::renderAssets() !!}
 @endsection
